@@ -8,13 +8,18 @@ var data_kcal = [ ['GHG emissions', 30, 20, 100, 200, 150, 650],
                   ['Eutrophication potential', 130, 100, 140, 200, 150, 50]
                 ]
 
-$(function () {
+var subgroups = ["Maize","Corn","Rice","Nuts","Fruits","Vegetables","Yogurts","Milk","Eggs","Trawling fish","NT fish","Aqua","Poultry","Pork","Red meat"]
 
+var subgroups_meat = ["Cereals","Plants","Dairy","Eggs","Seafood","Poultry","Pork","Red meat"]
+
+var data_sub_kcal = [ ['GHG emissions', 30, 20, 100, 200, 150, 650,700,2000]];
+
+$(function () {
 
     var chart = c3.generate({
          //bindto: '#chart',
          data: {
-            columns: [data_kcal[0]],
+            columns: data_kcal,
             type: 'bar',
             onclick: function (d, element){
                 console.log('onclick');
@@ -62,35 +67,50 @@ $(function () {
     };
 
     var slide_1 = function() {
+      chart.unload({
+        ids: ['Land use','Acidification potential','Energy use', 'Eutrophication potential']
+        /*columns: [data_kcal[1],data_kcal[2]]*/
+      });
       document.getElementById("slide_title").innerHTML = "";
       document.getElementById("slide_text").innerHTML = "The carbon impact (why it matters...) GHG Emissions...";
     };
 
     var slide_2 = function() {
-      document.getElementById("slide_text").innerHTML = "These foods are really whorst...";
-      /*chart.regions([{
-        axis:'x',   start: '3'
-      }]);*/
+      document.getElementById("slide_text").innerHTML = "The animal-based foods are really worst...";
+      chart.regions([{
+        axis:'x',   start: '1.5',end: '5.5'
+      }]);
     };
 
     var slide_3 = function() {
-     /*chart.regions([]);*/
-      document.getElementById("slide_text").innerHTML = "...";
+    /*chart.load({
+        columns: data_meat_kcal,
+        axis: {
+            x: {
+                type: 'category',
+                categories: subgroups_meat
+            },  
+        }
+    });
+    chart.unload({
+        ids: 'GHG emissions'
+        });*/
+      document.getElementById("slide_text").innerHTML = "Zooming on meat";
     };
 
     var slide_4 = function() {
-     /*chart.select(["Searches"], [107]);*/
-      document.getElementById("slide_text").innerHTML = "boo";
+     chart.regions([]);
+      document.getElementById("slide_text").innerHTML = "...";
     };
 
     var slide_5 = function() {
-     /*chart.unselect();*/
      chart.load({
         columns: [data_kcal[1]],
         axis: {
             y: {
                 label: 'm2/kcal'
             }
+
         }
     });
     chart.unload({
@@ -100,7 +120,6 @@ $(function () {
     };
 
     var slide_6 = function() {
-     /*chart.unselect();*/
      chart.load({
         columns: [data_kcal[2]],
         axis: {
@@ -115,12 +134,20 @@ $(function () {
       document.getElementById("slide_text").innerHTML = "About acidification potential...";
     };
  
-    var slide_6 = function() {
-    //Pour superposer: chart.groups([['data1', 'data2']]);
-      document.getElementById("slide_text").innerHTML = "ugyug";
+    var slide_7 = function() {
+    chart.load({
+        columns: [data_kcal[1],data_kcal[0],data_kcal[3]],
+        axis: {
+            y: {
+                label: 'Acid.units'
+            }
+        }
+    }); 
+    chart.groups([['GHG emissions', 'Land use','Acidification potential','Energy use']]);
+      document.getElementById("slide_text").innerHTML = "Now summing all types of impacts... synergies rather than trade-offs";
     };
 
-    var slides = [slide_0, slide_1, slide_2, slide_3, slide_4, slide_5, slide_6];
+    var slides = [slide_0, slide_1, slide_2, slide_3, slide_4, slide_5, slide_6, slide_7];
 
 
     // Cycle through slides
