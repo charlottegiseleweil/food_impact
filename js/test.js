@@ -108,7 +108,7 @@ $(function () {
                 label: 'Acid.units'
             }
         }
-    });
+    }); 
     chart.unload({
         ids: 'Land use'
     });
