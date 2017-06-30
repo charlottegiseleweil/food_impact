@@ -114,7 +114,7 @@ $(function () {
     });
       document.getElementById("slide_text").innerHTML = "About acidification potential...";
     };
-
+ 
     var slide_6 = function() {
     //Pour superposer: chart.groups([['data1', 'data2']]);
       document.getElementById("slide_text").innerHTML = "ugyug";
