@@ -73,6 +73,8 @@ $(function () {
       });
       document.getElementById("slide_title").innerHTML = "";
       document.getElementById("slide_text").innerHTML = "The carbon impact (why it matters...) GHG Emissions...";
+        console.log(chart.axes);
+
     };
 
     var slide_2 = function() {
@@ -80,6 +82,16 @@ $(function () {
       chart.regions([{
         axis:'x',   start: '1.5',end: '5.5'
       }]);
+
+    console.log(chart.axis.y);
+      // Get current axes
+    chart.data.axes();
+
+    // Update axes
+    chart.data.axes({
+    'GHG emissions': 'y',
+    'Land use': 'y2'
+        });
     };
 
     var slide_3 = function() {
@@ -104,7 +116,7 @@ $(function () {
     };
 
     var slide_5 = function() {
-     chart.load({
+    chart.load({
         columns: [data_kcal[1]],
         axis: {
             y: {
@@ -116,6 +128,9 @@ $(function () {
     chart.unload({
         ids: 'GHG emissions'
     });
+    chart.axis.y.label('m2/kcal');
+    
+
       document.getElementById("slide_text").innerHTML = "Land use measures how much land is occupied during food production...";
     };
 
@@ -146,6 +161,8 @@ $(function () {
     chart.groups([['GHG emissions', 'Land use','Acidification potential','Energy use']]);
       document.getElementById("slide_text").innerHTML = "Now summing all types of impacts... synergies rather than trade-offs";
     };
+
+
 
     var slides = [slide_0, slide_1, slide_2, slide_3, slide_4, slide_5, slide_6, slide_7];
 
